@@ -8,8 +8,8 @@
         android:orderInCategory="1"/>
 
     <item
-        android:id="@+id/itemeditar"
-        android:title="Editar"
+        android:id="@+id/itemlimparlista"
+        android:title="Limpar lista"
         android:orderInCategory="2"/>
 
 </menu>

@@ -1,12 +1,14 @@
 package com.eric.listadetarefas.activities;
 
 import androidx.annotation.NonNull;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.ContentValues;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
@@ -34,6 +36,7 @@ public class MainActivity extends AppCompatActivity {
     private AtividadeAdapter atividadeAdapter;
     private List<Atividade> listaAtividades = new ArrayList<>();
     private TextView txvAmount;
+    private Atividade atividadeSelecionada;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,12 +74,37 @@ public class MainActivity extends AppCompatActivity {
 
                                startActivity(intent);
 
-                               Toast.makeText(MainActivity.this, "", Toast.LENGTH_SHORT).show();
                            }
 
                            @Override
                            public void onLongItemClick(View view, int position) {
 
+                               atividadeSelecionada = listaAtividades.get(position);
+
+                               AlertDialog.Builder alertDialog = new AlertDialog.Builder(MainActivity.this);
+                               alertDialog.setTitle("Confirmar Exclusão?");
+                               alertDialog.setMessage("Deseja mesmo excluir a tarefa "+atividadeSelecionada.getNomeTarefa()+"?");
+
+                               alertDialog.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                                   @Override
+                                   public void onClick(DialogInterface dialogInterface, int i) {
+
+                                        TarefaDAO tarefaDAO = new TarefaDAO(getApplicationContext());
+
+                                        if (tarefaDAO.deletar(atividadeSelecionada)){
+                                            ListarTarefas();
+                                        }
+                                        else{
+                                            Toast.makeText(MainActivity.this,
+                                                    "Erro ao excluir tarefa",
+                                                    Toast.LENGTH_SHORT).show();
+                                        }
+                                   }
+                               });
+
+                               alertDialog.setNegativeButton("Não", null);
+
+                               alertDialog.create().show();
                            }
 
                            @Override
@@ -105,16 +133,14 @@ public class MainActivity extends AppCompatActivity {
         recyclerAtividades.addItemDecoration(new DividerItemDecoration(getApplicationContext(),
                 LinearLayoutManager.VERTICAL));
         recyclerAtividades.setAdapter(atividadeAdapter);
+
+        UpdateColumnsNumbers();
     }
 
     @Override
     protected void onStart() {
         this.ListarTarefas();
         super.onStart();
-
-        //show column amount
-        TarefaDAO tarefaDAO = new TarefaDAO(this);
-        txvAmount.setText(""+tarefaDAO.contar());
     }
 
     @Override
@@ -127,7 +153,8 @@ public class MainActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         switch (item.getItemId()){
-            case R.id.itemeditar:
+            case R.id.itemlimparlista:
+
                 Toast.makeText(this,
                         "editar teste",
                         Toast.LENGTH_SHORT)
@@ -143,4 +170,13 @@ public class MainActivity extends AppCompatActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    public void UpdateColumnsNumbers(){
+
+        //show column amount
+        TarefaDAO tarefaDAO = new TarefaDAO(this);
+        txvAmount.setText(""+tarefaDAO.contar());
+
+    }
+
 }
