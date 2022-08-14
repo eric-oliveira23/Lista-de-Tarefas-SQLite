@@ -3,12 +3,14 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <item
-        android:id="@+id/itemsalvar"
-        android:title="Salvar"
-        android:orderInCategory="1"/>
+        android:id="@+id/itemlimparlista"
+        android:title="Limpar lista"
+        android:orderInCategory="2"/>
 
     <item
-        android:id="@+id/itemlimparlista"
+        android:id="@+id/itemadicionar"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_baseline_add_task_24"
         android:title="Limpar lista"
         android:orderInCategory="2"/>
 

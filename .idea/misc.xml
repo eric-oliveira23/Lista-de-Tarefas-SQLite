@@ -3,8 +3,9 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Users/T-GAMER/AndroidStudioProjects/ListaDeTarefas/app/src/main/res/drawable/txv_background.xml" value="0.142" />
         <entry key="..\:/Users/T-GAMER/AndroidStudioProjects/ListaDeTarefas/app/src/main/res/layout/activity_adicionar_tarefa.xml" value="0.36666666666666664" />
-        <entry key="..\:/Users/T-GAMER/AndroidStudioProjects/ListaDeTarefas/app/src/main/res/layout/activity_main.xml" value="0.35260416666666666" />
+        <entry key="..\:/Users/T-GAMER/AndroidStudioProjects/ListaDeTarefas/app/src/main/res/layout/activity_main.xml" value="0.33" />
         <entry key="..\:/Users/T-GAMER/AndroidStudioProjects/ListaDeTarefas/app/src/main/res/layout/lista_tarefa.xml" value="0.365625" />
         <entry key="..\:/Users/T-GAMER/AndroidStudioProjects/ListaDeTarefas/app/src/main/res/menu/adicionar_tarefa_menu.xml" value="0.2064814814814815" />
         <entry key="..\:/Users/T-GAMER/AndroidStudioProjects/ListaDeTarefas/app/src/main/res/menu/menu_adicionar_tarefa.xml" value="0.33" />

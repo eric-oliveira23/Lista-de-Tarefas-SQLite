@@ -77,6 +77,21 @@ public class TarefaDAO implements iTarefaDAO{
     }
 
     @Override
+    public boolean deletarTodos() {
+
+        try {
+            SQLiteDatabase sqLiteDatabase = this.escreve;
+            String sql = "DELETE FROM " + DbHelper.TASK_TABLE + ";";
+            sqLiteDatabase.execSQL(sql);
+
+        } catch (Exception e) {
+            Log.i("INFO DB","ERRO AO DELETAR TODOS "+e.getMessage());
+            return false;
+        }
+        return true;
+    }
+
+    @Override
     public List<Atividade> listar() {
 
         List<Atividade> atividades = new ArrayList<>();

@@ -7,7 +7,6 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.ContentValues;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -18,20 +17,19 @@ import android.widget.AdapterView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.eric.listadetarefas.R;
 import com.eric.listadetarefas.adapter.AtividadeAdapter;
-import com.eric.listadetarefas.helper.DbHelper;
 import com.eric.listadetarefas.helper.RecyclerItemClickListener;
 import com.eric.listadetarefas.helper.TarefaDAO;
 import com.eric.listadetarefas.model.Atividade;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    private FloatingActionButton floatingActionButton;
     private RecyclerView recyclerAtividades;
     private AtividadeAdapter atividadeAdapter;
     private List<Atividade> listaAtividades = new ArrayList<>();
@@ -43,19 +41,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        floatingActionButton = findViewById(R.id.floatingActionButton);
         recyclerAtividades = findViewById(R.id.recyclerAtividades);
         txvAmount = findViewById(R.id.txvAmount);
-
-        floatingActionButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                Intent intent = new Intent(getApplicationContext(), AdicionarTarefaActivity.class);
-                startActivity(intent);
-
-            }
-        });
 
         recyclerAtividades.addOnItemTouchListener(
                new RecyclerItemClickListener(
@@ -93,6 +80,10 @@ public class MainActivity extends AppCompatActivity {
 
                                         if (tarefaDAO.deletar(atividadeSelecionada)){
                                             ListarTarefas();
+
+                                            Toast.makeText(MainActivity.this, "Tarefa "
+                                                    +atividadeSelecionada.getNomeTarefa()+
+                                                    " excluída com sucesso", Toast.LENGTH_SHORT).show();
                                         }
                                         else{
                                             Toast.makeText(MainActivity.this,
@@ -134,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                 LinearLayoutManager.VERTICAL));
         recyclerAtividades.setAdapter(atividadeAdapter);
 
-        UpdateColumnsNumbers();
+        AtualizarNumeroColunas();
     }
 
     @Override
@@ -155,28 +146,41 @@ public class MainActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.itemlimparlista:
 
-                Toast.makeText(this,
-                        "editar teste",
-                        Toast.LENGTH_SHORT)
-                        .show();
+                AlertDialog.Builder alertDialog = new AlertDialog.Builder(this);
+                alertDialog.setTitle("Você tem certeza?");
+                alertDialog.setMessage("Todas as tarefas serão apagadas!");
+                alertDialog.setPositiveButton("Sim", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        TarefaDAO tarefaDAO = new TarefaDAO(getApplicationContext());
+                        tarefaDAO.deletarTodos();
+                        ListarTarefas();
+
+                        Toast.makeText(getApplicationContext(),
+                                "As tarefas foram apagadas",
+                                Toast.LENGTH_SHORT)
+                                .show();
+                    }
+                });
+                alertDialog.setNegativeButton("Não", null);
+                alertDialog.create().show();
                 break;
 
-            case R.id.itemsalvar:
-                Toast.makeText(this,
-                        "salvar teste",
-                        Toast.LENGTH_SHORT)
-                        .show();
+            case R.id.itemadicionar:
+
+                Intent intent = new Intent(getApplicationContext(), AdicionarTarefaActivity.class);
+                startActivity(intent);
+
                 break;
         }
         return super.onOptionsItemSelected(item);
     }
 
-    public void UpdateColumnsNumbers(){
+    public void AtualizarNumeroColunas(){
 
-        //show column amount
+        //mostra quantidade de colunas
         TarefaDAO tarefaDAO = new TarefaDAO(this);
         txvAmount.setText(""+tarefaDAO.contar());
 
     }
-
 }

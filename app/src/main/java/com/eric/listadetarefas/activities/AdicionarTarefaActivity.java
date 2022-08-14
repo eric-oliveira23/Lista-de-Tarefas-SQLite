@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -80,7 +81,6 @@ public class AdicionarTarefaActivity extends AppCompatActivity {
                 }
                     break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 }

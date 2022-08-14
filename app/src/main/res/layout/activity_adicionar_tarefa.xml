@@ -4,14 +4,19 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".activities.AdicionarTarefaActivity">
+    tools:context=".activities.AdicionarTarefaActivity"
+    android:background="@color/dark_grey">
 
     <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/textInputLayout"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="100dp"
         android:layout_marginTop="50dp"
         android:layout_marginEnd="100dp"
+        android:background="@color/grey"
+        android:textColorHint="@color/white"
+        app:hintTextColor="@color/white"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
@@ -20,6 +25,11 @@
             android:id="@+id/textTarefa"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Digite sua tarefa" />
+            android:background="@color/grey"
+            android:hint="Digite sua tarefa"
+            android:textColorHint="@color/white" />
+
     </com.google.android.material.textfield.TextInputLayout>
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

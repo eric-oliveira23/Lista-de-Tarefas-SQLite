@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:orientation="vertical"
-    android:padding="10dp">
+    android:padding="10dp"
+    android:backgroundTint="@color/light_grey"
+    android:elevation="100dp"
+    android:layout_margin="15dp"
+    app:cardCornerRadius="15dp">
 
     <TextView
         android:id="@+id/txtTarefa"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins"
         android:padding="10dp"
+        android:layout_marginStart="8dp"
         android:text="Estudar Android"
         android:textColor="@color/white"
         android:textSize="18sp" />
-</LinearLayout>
+</androidx.cardview.widget.CardView>
